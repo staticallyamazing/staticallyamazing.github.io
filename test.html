@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" />
+        <title>staticallyamazing.github.io</title>
+    </head>
+    <body>
+      <div id="div"></div>
+      <script>
+        const data = `
+<div style="width: 100vw; height: 100vh; z-index: 999; background-color: black; position: fixed; top: 0; left: 0; margin: 0; padding: 0; color: white">
+this is kinda funny
+<img style="width: 200px; height: 200px" src="https://th.bing.com/th/id/OIP.vA5LHpsWN17cQEV94gJBngHaGG?pid=ImgDet&w=4005&h=3298&rs=1" onclick="alert(1)" />
+<`+`script defer>alert(1)</`+`script>
+</div>
+`
+
+console.log(btoa(encodeURIComponent(data)))
+document.getElementById("div").innerHTML = decodeURIComponent(atob(btoa(encodeURIComponent(data))))
+      </script>
+    </body>
+</html>
