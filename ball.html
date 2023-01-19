@@ -116,7 +116,7 @@
 
             const resetInterval = () => {
                 clearInterval(intervalID);
-                if (cooldown <= 0) return;
+                if (cooldown < 0) return;
                 intervalID = setInterval(() => {
                     document.body.appendChild(document.createElement("b"));
                 }, cooldown);
