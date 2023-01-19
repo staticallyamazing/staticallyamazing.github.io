@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" />
+        <title>bryanbraun.com/after-dark-css</title>
+        <style>
+            body {
+                background-color: black;
+                margin: 0;
+                padding: 0;
+            }
+
+            b {
+                display: block;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: white;
+                position: absolute;
+                /* ball animation */
+                -webkit-animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
+                -moz-animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
+                -o-animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
+                animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
+            }
+
+            /* animation keyframes */
+            @-webkit-keyframes moveX {
+
+                /* screen width - width of ball */
+                from {
+                    left: calc(100% - 40px);
+                }
+
+                to {
+                    left: 0;
+                }
+            }
+
+            @-moz-keyframes moveX {
+                from {
+                    left: calc(100% - 40px);
+                }
+
+                to {
+                    left: 0;
+                }
+            }
+
+            @-o-keyframes moveX {
+                from {
+                    left: calc(100% - 40px);
+                }
+
+                to {
+                    left: 0;
+                }
+            }
+
+            @keyframes moveX {
+                from {
+                    left: calc(100% - 40px);
+                }
+
+                to {
+                    left: 0;
+                }
+            }
+
+            @-webkit-keyframes moveY {
+                from {
+                    top: 0;
+                }
+
+                to {
+                    top: calc(100% - 40px);
+                }
+            }
+
+            @-moz-keyframes moveY {
+                from {
+                    top: 0;
+                }
+
+                to {
+                    top: calc(100% - 40px);
+                }
+            }
+
+            @-o-keyframes moveY {
+                from {
+                    top: 0;
+                }
+
+                to {
+                    top: calc(100% - 40px);
+                }
+            }
+
+            @keyframes moveY {
+                from {
+                    top: 0;
+                }
+
+                to {
+                    top: calc(100% - 40px);
+                }
+            }
+        </style>
+        <script defer>
+            setInterval(() => {
+                document.body.appendChild(document.createElement("b"));
+            }, 5000);
+        </script>
+    </head>
+    <body>
+        <b></b>
+    </body>
+</html>
