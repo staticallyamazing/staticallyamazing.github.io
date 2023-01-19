@@ -111,6 +111,8 @@
             }
         </style>
         <script defer>
+            alert("Press enter or add #settings to the end of the URL to configure settings");
+
             let cooldown = 1000;
             let intervalID = -1;
 
@@ -123,13 +125,24 @@
             };
             resetInterval();
 
+            const configure = () => {
+                const newCooldown = Number.parseFloat(
+                    prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"),
+                );
+                if (typeof newCooldown != "number") return alert("Invalid number");
+                cooldown = newCooldown;
+                resetInterval();
+            };
+
             document.addEventListener("keypress", (e) => {
                 if (e.key.toLowerCase() == "enter") {
-                    const newCooldown = Number.parseFloat(prompt("Enter ball spawn cooldown in seconds (-1 to disable)"));
-                    if (typeof newCooldown != "number") return alert("Invalid number");
-                    cooldown = newCooldown;
-                    resetInterval();
+                    configure();
                 }
+            });
+
+            if (location.hash.toLowerCase().includes("settings")) configure();
+            document.addEventListener("hashchange", () => {
+                if (location.hash.toLowerCase().includes("settings")) configure();
             });
         </script>
     </head>
