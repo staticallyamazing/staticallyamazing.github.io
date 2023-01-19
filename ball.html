@@ -111,9 +111,25 @@
             }
         </style>
         <script defer>
-            setInterval(() => {
-                document.body.appendChild(document.createElement("b"));
-            }, 5000);
+            let cooldown = 1000;
+            let intervalID = -1;
+
+            const resetInterval = () => {
+                clearInterval(intervalID);
+                intervalID = setInterval(() => {
+                    document.body.appendChild(document.createElement("b"));
+                }, cooldown);
+            };
+            resetInterval();
+
+            document.addEventListener("keypress", (e) => {
+                if (e.key.toLowerCase() == "enter") {
+                    const newCooldown = Number.parseFloat(prompt("Enter ball spawn cooldown in seconds"));
+                    if (typeof newCooldown != "number") return alert("Invalid number");
+                    cooldown = newCooldown;
+                    resetInterval();
+                }
+            });
         </script>
     </head>
     <body>
