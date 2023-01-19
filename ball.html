@@ -116,6 +116,7 @@
 
             const resetInterval = () => {
                 clearInterval(intervalID);
+                if (cooldown <= 0) return;
                 intervalID = setInterval(() => {
                     document.body.appendChild(document.createElement("b"));
                 }, cooldown);
@@ -124,7 +125,7 @@
 
             document.addEventListener("keypress", (e) => {
                 if (e.key.toLowerCase() == "enter") {
-                    const newCooldown = Number.parseFloat(prompt("Enter ball spawn cooldown in seconds"));
+                    const newCooldown = Number.parseFloat(prompt("Enter ball spawn cooldown in seconds (-1 to disable)"));
                     if (typeof newCooldown != "number") return alert("Invalid number");
                     cooldown = newCooldown;
                     resetInterval();
