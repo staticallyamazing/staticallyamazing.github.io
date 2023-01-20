@@ -164,6 +164,15 @@
             window.addEventListener("hashchange", () => {
                 if (location.hash.toLowerCase().includes("settings")) configure();
             });
+
+            if (location.search.toLowerCase().includes("console")) {
+                const script = document.createElement("script");
+                script.src = "//cdn.jsdelivr.net/npm/eruda";
+                document.body.appendChild(script);
+                script.onload = function () {
+                    eruda.init();
+                };
+            }
         </script>
     </head>
     <body>
