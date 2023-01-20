@@ -118,7 +118,11 @@
             }
         </style>
         <script defer>
-            alert("Press enter or add #settings to the end of the URL to configure settings");
+            if (!location.hash.toLowerCase().includes("settings")) {
+                document.body.classList.add("paused");
+                alert("Press enter or add #settings to the end of the URL to configure settings");
+                document.body.classList.remove("paused");
+            }
 
             let cooldown = 1000;
             let intervalID = -1;
@@ -131,14 +135,18 @@
             };
             resetInterval();
 
-            const configure = () => {
+            const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
+            const configure = async () => {
                 clearInterval(intervalID);
                 document.body.classList.add("paused");
+                await sleep(10);
                 const newCooldown = Number.parseFloat(
                     prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"),
                 );
                 if (isNaN(newCooldown)) {
                     alert("Invalid number");
+                    resetInterval();
                     return document.body.classList.remove("paused");
                 }
                 document.body.classList.remove("paused");
