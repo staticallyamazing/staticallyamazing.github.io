@@ -121,7 +121,7 @@
     <body>
         <b></b>
         <script>
-            if (location.hash.toLowerCase().includes("console")) {
+                        if (location.hash.toLowerCase().includes("console")) {
                 const script = document.createElement("script");
                 script.src = "//cdn.jsdelivr.net/npm/eruda";
                 document.body.appendChild(script);
@@ -143,12 +143,10 @@
             const configure = async () => {
                 document.body.classList.add("paused");
                 await sleep(10);
-                const newCooldown = Number.parseFloat(
-                    prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"),
-                );
+                const newCooldown = Number.parseFloat(prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"));
                 if (isNaN(newCooldown)) {
                     alert("Invalid number");
-                    document.body.classList.remove("paused")
+                    document.body.classList.remove("paused");
                     return;
                 }
                 cooldown = newCooldown;
@@ -165,6 +163,9 @@
             window.addEventListener("hashchange", () => {
                 if (location.hash.toLowerCase().includes("settings")) configure();
             });
+
+            window.addEventListener("blur", () => document.body.classList.add("paused"));
+            window.addEventListener("focus", () => document.body.classList.remove("paused"));
 
             while (true) {
                 if (cooldown < 0) continue;
