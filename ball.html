@@ -137,20 +137,20 @@
             }
 
             let cooldown = 1000;
-            let intervalID = -1;
 
-            const resetInterval = () => {
+            const resetInterval = async () => {
                 if (cooldown < 0) return;
-                intervalID = setInterval(() => {
+                const currentCooldown = cooldown * 1;
+                while (cooldown == currentCooldown) {
+                    await sleep(currentCooldown)
                     document.body.appendChild(document.createElement("b"));
-                }, cooldown);
+                }
             };
             resetInterval();
 
             const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
             const configure = async () => {
-                clearInterval(intervalID);
                 document.body.classList.add("paused");
                 await sleep(10);
                 const newCooldown = Number.parseFloat(
@@ -158,11 +158,12 @@
                 );
                 if (isNaN(newCooldown)) {
                     alert("Invalid number");
+                    document.body.classList.remove("paused")
                     resetInterval();
-                    return document.body.classList.remove("paused");
+                    return;
                 }
-                document.body.classList.remove("paused");
                 cooldown = newCooldown;
+                document.body.classList.remove("paused");
                 resetInterval();
             };
 
