@@ -172,7 +172,7 @@
             (async () => {
                 while (true) {
                     if (cooldown < 0) continue;
-                    await sleep(currentCooldown);
+                    await sleep(cooldown);
                     document.body.appendChild(document.createElement("b"));
                 }
             })();
