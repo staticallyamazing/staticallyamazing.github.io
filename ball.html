@@ -27,7 +27,7 @@
                 animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
             }
 
-            .paused>* {
+            .paused > * {
                 -webkit-animation-play-state: paused;
                 -moz-animation-play-state: paused;
                 -o-animation-play-state: paused;
@@ -118,6 +118,7 @@
             }
         </style>
         <script defer>
+            try {
             if (!location.hash.toLowerCase().includes("settings")) {
                 document.body.classList.add("paused");
                 alert("Press enter or add #settings to the end of the URL to configure settings");
@@ -164,6 +165,9 @@
             window.addEventListener("hashchange", () => {
                 if (location.hash.toLowerCase().includes("settings")) configure();
             });
+        } catch(e) {
+            alert(JSON.stringify(e.message))
+        }
         </script>
         <script defer>
             if (location.hash.toLowerCase().includes("console")) {
