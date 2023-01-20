@@ -126,6 +126,7 @@
             resetInterval();
 
             const configure = () => {
+                clearInterval(intervalID);
                 const newCooldown = Number.parseFloat(
                     prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"),
                 );
@@ -141,7 +142,7 @@
             });
 
             if (location.hash.toLowerCase().includes("settings")) configure();
-            document.addEventListener("hashchange", () => {
+            window.addEventListener("hashchange", () => {
                 if (location.hash.toLowerCase().includes("settings")) configure();
             });
         </script>
