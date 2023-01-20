@@ -138,16 +138,6 @@
 
             let cooldown = 1000;
 
-            const resetInterval = async () => {
-                if (cooldown < 0) return;
-                const currentCooldown = cooldown * 1;
-                while (cooldown == currentCooldown) {
-                    await sleep(currentCooldown)
-                    document.body.appendChild(document.createElement("b"));
-                }
-            };
-            resetInterval();
-
             const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
             const configure = async () => {
@@ -159,12 +149,10 @@
                 if (isNaN(newCooldown)) {
                     alert("Invalid number");
                     document.body.classList.remove("paused")
-                    resetInterval();
                     return;
                 }
                 cooldown = newCooldown;
                 document.body.classList.remove("paused");
-                resetInterval();
             };
 
             document.addEventListener("keypress", (e) => {
@@ -177,6 +165,12 @@
             window.addEventListener("hashchange", () => {
                 if (location.hash.toLowerCase().includes("settings")) configure();
             });
+
+            while (true) {
+                if (cooldown < 0) continue;
+                await sleep(currentCooldown);
+                document.body.appendChild(document.createElement("b"));
+            }
         </script>
     </body>
 </html>
