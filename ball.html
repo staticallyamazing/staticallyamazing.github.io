@@ -27,6 +27,13 @@
                 animation: moveX 3.4s linear 0s infinite alternate, moveY 3s linear 0s infinite alternate;
             }
 
+            .paused>* {
+                -webkit-animation-play-state: paused;
+                -moz-animation-play-state: paused;
+                -o-animation-play-state: paused;
+                animation-play-state: paused;
+            }
+
             /* animation keyframes */
             @-webkit-keyframes moveX {
 
@@ -117,7 +124,6 @@
             let intervalID = -1;
 
             const resetInterval = () => {
-                clearInterval(intervalID);
                 if (cooldown < 0) return;
                 intervalID = setInterval(() => {
                     document.body.appendChild(document.createElement("b"));
@@ -127,10 +133,15 @@
 
             const configure = () => {
                 clearInterval(intervalID);
+                document.body.classList.add("paused");
                 const newCooldown = Number.parseFloat(
                     prompt("Enter ball spawn cooldown in milliseconds (-1 to disable)"),
                 );
-                if (typeof newCooldown != "number") return alert("Invalid number");
+                if (isNaN(newCooldown)) {
+                    alert("Invalid number");
+                    return document.body.classList.remove("paused");
+                }
+                document.body.classList.remove("paused");
                 cooldown = newCooldown;
                 resetInterval();
             };
