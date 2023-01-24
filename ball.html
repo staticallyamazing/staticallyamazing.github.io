@@ -119,7 +119,6 @@
         </style>
     </head>
     <body>
-        <b></b>
         <script>
             if (location.hash.toLowerCase().includes("console")) {
                 const script = document.createElement("script");
@@ -132,8 +131,10 @@
 
             if (!location.hash.toLowerCase().includes("settings")) {
                 document.body.classList.add("paused");
-                alert("Press enter or add #settings to the end of the URL to configure settings");
-                document.body.classList.remove("paused");
+                sleep(10).then(() => {
+                    alert("Press enter or add #settings to the end of the URL to configure settings");
+                    document.body.classList.remove("paused");
+                });
             }
 
             let cooldown = 1000;
