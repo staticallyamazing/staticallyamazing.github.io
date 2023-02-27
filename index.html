@@ -10,10 +10,11 @@
     <body>
         <br />
         <br />
-        <input id="a" placeholder="url" />
+        <input id="a" placeholder="url" style="width: 100%" />
+        <br />
         <button id="b">go to URL</button>
         <br />
-        <button id="c">add to history</button>
+        <button id="c">add current page to history</button>
         <script>
             document.querySelector("#b").addEventListener("click", () => {
                 history.pushState({}, '', location.href)
