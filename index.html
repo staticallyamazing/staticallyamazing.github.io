@@ -10,17 +10,30 @@
     <body style="margin: 0; padding: 0">
         <br />
         <br />
-        <input id="a" placeholder="url" style="width: 100%" />
+        <input id="a" placeholder="url" style="width: 80vw" />
         <br />
         <button id="b">go to URL</button>
         <br />
         <button id="c">add current page to history</button>
+        <br />
+        <p>entered location will be saved (remember browser data is reset in chrome://chrome-signin) you can also press enter to go to URL</p>
         <script>
-            document.querySelector("#b").addEventListener("click", () => {
+            document.querySelector("#a").value = localStorage.getItem('location') || ''
+            function setLocation() {
                 history.pushState({}, '', location.href)
                 var newLoc = document.querySelector("#a").value
                 if (!newLoc.startsWith("https://") && !newLoc.startsWith("http://")) newLoc = "https://" + newLoc
+                localStorage.setItem('location', newLoc)
                 location.href = newLoc
+            }
+            window.addEventListener('keypress', (e) => {
+                if (e.keyCode === 13) {
+                    e.preventDefault()
+                    setLocation()
+                }
+            })
+            document.querySelector("#b").addEventListener("click", () => {
+                setLocation()
             })
             document.querySelector("#c").addEventListener("click", () => {
                 history.pushState({}, '', location.href)
