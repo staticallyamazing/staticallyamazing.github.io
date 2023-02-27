@@ -16,6 +16,8 @@
         <br />
         <button id="c">add current page to history</button>
         <br />
+        <button id="d">reload page</button>
+        <br />
         <p>entered location will be saved (remember browser data is reset in chrome://chrome-signin) you can also press enter to go to URL</p>
         <script>
             document.querySelector("#a").value = localStorage.getItem('location') || ''
@@ -37,6 +39,9 @@
             })
             document.querySelector("#c").addEventListener("click", () => {
                 history.pushState({}, '', location.href)
+            })
+            document.querySelector("#d").addEventListener("click", () => {
+                location.reload()
             })
         </script>
     </body>
