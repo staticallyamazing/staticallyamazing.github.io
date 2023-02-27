@@ -12,9 +12,17 @@
         <br />
         <input id="a" placeholder="url" />
         <button id="b">go to URL</button>
+        <br />
+        <button id="c">add to history</button>
         <script>
             document.querySelector("#b").addEventListener("click", () => {
-                location.href = document.querySelector("#a").value
+                history.pushState({}, '', location.href)
+                var newLoc = document.querySelector("#a").value
+                if (!newLoc.startsWith("https://") && !newLoc.startsWith("http://")) newLoc = "https://" + newLoc
+                location.href = newLoc
+            })
+            document.querySelector("#c").addEventListener("click", () => {
+                history.pushState({}, '', location.href)
             })
         </script>
     </body>
