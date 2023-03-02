@@ -52,10 +52,11 @@
                 const li = document.createElement('li')
                 
                 const a = document.createElement("a")
-                a.href = 'javascript:void(0)'
+                a.href = url
                 a.textContent = url
                 a.addEventListener("click", () => {
                     setLocation(url)
+                    return false
                 })
                 li.appendChild(a)
                 
