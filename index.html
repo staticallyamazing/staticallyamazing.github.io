@@ -17,12 +17,11 @@
         <button id="c">save URL to history</button>
         <br />
         <p>you can use the back key to go back here, urls will be saved in history, you can also press enter to go to URL</p>
-        <br />
         <p>history:</p>
         <ol id="d">
         </ol>
         <script>
-            function setLocation(url = document.querySelector("#a").value) {
+            function setLocation(url) {
                 history.pushState({}, '', location.href)
                 if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
                 addToHistory(url)
@@ -35,6 +34,7 @@
             } catch(e) {
                 history = []
             }
+            if (!Array.isArray(history)) history = []
             
             if (localStorage.getItem('location')) {
                 history.push(localStorage.getItem('location'))
@@ -56,7 +56,7 @@
                 document.querySelector("d").appendChild(li)
             }
             
-            function addToHistory(url = document.querySelector("#a").value) {
+            function addToHistory(url) {
                 history.push(url)
                 addHistoryElement(url)
                 localStorage.setItem('history', JSON.stringify(history))
@@ -65,16 +65,16 @@
             window.addEventListener('keypress', (e) => {
                 if (e.keyCode === 13) {
                     e.preventDefault()
-                    setLocation()
+                    setLocation(document.querySelector("#a").value)
                 }
             })
             
             document.querySelector("#b").addEventListener("click", () => {
-                setLocation()
+                setLocation(document.querySelector("#a").value)
             })
             
             document.querySelector("#c").addEventListener("click", () => {
-                addToHistory()
+                addToHistory(document.querySelector("#a").value)
             })
         </script>
     </body>
