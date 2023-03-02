@@ -22,44 +22,67 @@
         </ol>
         <script>
             function setLocation(url) {
-                history.pushState({}, '', location.href)
+            	if (!url) return
                 if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
+                history.pushState({}, '', location.href)
                 addToHistory(url)
                 location.href = url
             }
             
-            let history;
+            let urlHistory;
             try {
-                history = JSON.parse(localStorage.getItem('history'))
+                urlHistory = JSON.parse(localStorage.getItem('history'))
             } catch(e) {
-                history = []
+                urlHistory = []
             }
-            if (!Array.isArray(history)) history = []
+            if (!Array.isArray(urlHistory)) urlHistory = []
             
             if (localStorage.getItem('location')) {
-                history.push(localStorage.getItem('location'))
+                urlHistory.push(localStorage.getItem('location'))
                 localStorage.removeItem('location')
             }
             
-            for (url of history) {
+            for (url of urlHistory) {
                 addHistoryElement(url)
             }
             
             function addHistoryElement(url) {
+            	if (!url) return
+                if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
                 const li = document.createElement('li')
+                
                 const a = document.createElement("a")
+                a.href = 'javascript:void(0)'
                 a.textContent = url
                 a.addEventListener("click", () => {
                     setLocation(url)
                 })
                 li.appendChild(a)
-                document.querySelector("d").appendChild(li)
+                
+                li.innerHTML += '&nbsp;'
+                
+                const button = document.createElement('button')
+                button.textContent = 'Remove'
+                button.addEventListener('click', () => {
+                    const i = urlHistory.indexOf(5);
+                    if (i > -1) {
+                        urlHistory.splice(i, 1);
+                    }
+                    li.remove()
+                })
+                li.appendChild(button)
+                
+                document.querySelector("#d").appendChild(li)
             }
             
             function addToHistory(url) {
-                history.push(url)
-                addHistoryElement(url)
-                localStorage.setItem('history', JSON.stringify(history))
+            	if (!url) return
+                if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
+                if (!urlHistory.includes(url)) {
+                    urlHistory.push(url)
+                    addHistoryElement(url)
+                }
+                localStorage.setItem('history', JSON.stringify(urlHistory))
             }
             
             window.addEventListener('keypress', (e) => {
