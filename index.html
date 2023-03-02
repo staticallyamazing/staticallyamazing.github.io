@@ -14,34 +14,67 @@
         <br />
         <button id="b">go to URL</button>
         <br />
-        <button id="c">add current page to history</button>
+        <button id="c">save URL to history</button>
         <br />
-        <button id="d">reload page</button>
+        <p>you can use the back key to go back here, urls will be saved in history, you can also press enter to go to URL</p>
         <br />
-        <p>entered location will be saved (remember browser data is reset in chrome://chrome-signin) you can also press enter to go to URL</p>
+        <p>history:</p>
+        <ol id="d">
+        </ol>
         <script>
-            document.querySelector("#a").value = localStorage.getItem('location') || ''
-            function setLocation() {
+            function setLocation(url = document.querySelector("#a").value) {
                 history.pushState({}, '', location.href)
-                var newLoc = document.querySelector("#a").value
-                if (!newLoc.startsWith("https://") && !newLoc.startsWith("http://")) newLoc = "https://" + newLoc
-                localStorage.setItem('location', newLoc)
-                location.href = newLoc
+                if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
+                addToHistory(url)
+                location.href = url
             }
+            
+            let history;
+            try {
+                history = JSON.parse(localStorage.getItem('history'))
+            } catch(e) {
+                history = []
+            }
+            
+            if (localStorage.getItem('location')) {
+                history.push(localStorage.getItem('location'))
+                localStorage.removeItem('location')
+            }
+            
+            for (url of history) {
+                addHistoryElement(url)
+            }
+            
+            function addHistoryElement(url) {
+                const li = document.createElement('li')
+                const a = document.createElement("a")
+                a.textContent = url
+                a.addEventListener("click", () => {
+                    setLocation(url)
+                })
+                li.appendChild(a)
+                document.querySelector("d").appendChild(li)
+            }
+            
+            function addToHistory(url = document.querySelector("#a").value) {
+                history.push(url)
+                addHistoryElement(url)
+                localStorage.setItem('history', JSON.stringify(history))
+            }
+            
             window.addEventListener('keypress', (e) => {
                 if (e.keyCode === 13) {
                     e.preventDefault()
                     setLocation()
                 }
             })
+            
             document.querySelector("#b").addEventListener("click", () => {
                 setLocation()
             })
+            
             document.querySelector("#c").addEventListener("click", () => {
-                history.pushState({}, '', location.href)
-            })
-            document.querySelector("#d").addEventListener("click", () => {
-                location.reload()
+                addToHistory()
             })
         </script>
     </body>
