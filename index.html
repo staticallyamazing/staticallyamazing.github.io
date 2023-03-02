@@ -65,11 +65,11 @@
                 const button = document.createElement('button')
                 button.textContent = 'Remove'
                 button.addEventListener('click', () => {
-                    const i = urlHistory.indexOf(url);
+                    const i = urlHistory.indexOf(url)
                     if (i > -1) {
-                        urlHistory.splice(i, 1);
-                        li.remove()
+                        urlHistory.splice(i, 1)
                         localStorage.setItem('history', JSON.stringify(urlHistory))
+                        li.remove()
                     } else alert("failed to remove (try going to a page and then going back)")
                 })
                 li.appendChild(button)
