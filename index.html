@@ -69,6 +69,7 @@
                     if (i > -1) {
                         urlHistory.splice(i, 1);
                         li.remove()
+                        localStorage.setItem('history', JSON.stringify(urlHistory))
                     } else alert("failed to remove (try going to a page and then going back)")
                 })
                 li.appendChild(button)
