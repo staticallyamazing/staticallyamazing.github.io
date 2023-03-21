@@ -21,6 +21,8 @@
         <ol id="d">
         </ol>
         <script>
+            document.querySelector("#a").focus()
+            
             function setLocation(url) {
             	if (!url) return
                 if (!url.startsWith("https://") && !url.startsWith("http://")) url = "https://" + url
